@@ -19,7 +19,7 @@ class App extends Component {
     filter: ''
   }
   
-  handleSubmit = ({ name, number }) => {
+  handleSubmit = ({ name, number }) =>{
     const contactsNames = this.state.contacts.map(contact => contact.name);
 
     if (contactsNames.includes(name)) {
