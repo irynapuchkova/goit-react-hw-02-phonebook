@@ -1,14 +1,15 @@
 import 'normalize.css';
 import shortid from "shortid";
 
-import { Component } from "react";
+import {Component} from "react";
 
-import { Container, Heading, Title } from './App.styled';
-import ContactForm from 'ContactForm';
-import Filter from 'Filter';
-import ContactsList from 'ContactsList';
+import ContactForm from 'Components/ContactForm';
+import Filter from 'Components/Filter';
+import ContactsList from 'Components/ContactsList';
+import {Container, Heading, Title} from './App.styled';
 
-class App extends Component {
+
+export default class App extends Component {
     state = {
     contacts: [
       {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
@@ -63,26 +64,14 @@ class App extends Component {
     return (
       <Container>
         <Heading>PhoneBook</Heading>
-
-        <ContactForm
-          onSubmitForm={this.handleSubmit}
-        />
-
+        <ContactForm onSubmitForm={this.handleSubmit}/>
         <Title type = 'text'>Contacts</Title>
-        <Filter
-          value = {filter}
-          onChange={this.changeFilter}
-        />
-        <ContactsList
-          contacts={visibleContacts}
-          onDeleteContact = {this.deleteContact} />
-
+        <Filter value = {filter} onChange={this.changeFilter}/>
+        <ContactsList contacts={visibleContacts} onDeleteContact = {this.deleteContact}/>
       </Container>
     ) 
   }
 }
-
-export default App;
 
 // ??????WHY don't 1 and 2 work?????
 // VARIANT 1

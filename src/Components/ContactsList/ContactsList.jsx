@@ -1,25 +1,18 @@
-import 'normalize.css';
-
 import React from "react";
 import PropTypes from 'prop-types';
 
-import ContactItem from "ContactItem";
+import ContactItem from "Components/ContactItem/ContactItem";
 import {Contacts, ContactToAdd} from './ContactsList.styled';
 
 export default function ContactsList({ contacts, onDeleteContact}) {
 
   return (
-      <Contacts>
+    <Contacts>
       {contacts.map(({ id, name, number }) =>
         <ContactToAdd key={id}>
-          <ContactItem 
-            name={name}
-            number={number}
-            onClick={()=>onDeleteContact(id)}
-          />
-        </ContactToAdd>)
-      }
-      </Contacts>
+          <ContactItem name={name} number={number} onClick={()=>onDeleteContact(id)}/>
+        </ContactToAdd>)}
+    </Contacts>
   )
 }
 

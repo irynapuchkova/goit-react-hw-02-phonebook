@@ -8,10 +8,7 @@ export default function ContactItem({name, number, onClick}) {
     <>
       <Name>{name}</Name>
       <Tel>{number}</Tel>
-      <DeleteBtn
-        type='button'
-        onClick={onClick}
-      >Delete</DeleteBtn>
+      <DeleteBtn type='button' onClick={onClick}>Delete</DeleteBtn>
     </>
   )
 }
