@@ -1,61 +1,60 @@
 import 'normalize.css';
-import shortid from "shortid";
+import shortid from 'shortid';
 
-import {Component} from "react";
+import { Component } from 'react';
 
 import ContactForm from 'Components/ContactForm';
 import Filter from 'Components/Filter';
 import ContactsList from 'Components/ContactsList';
-import {Container, Heading, Title} from './App.styled';
-
+import { Container, Heading, Title } from './App.styled';
 
 export default class App extends Component {
-    state = {
+  state = {
     contacts: [
-      {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-      {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-      {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-      {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
-    filter: ''
-  }
-  
-  handleSubmit = ({ name, number }) =>{
+    filter: '',
+  };
+
+  handleSubmit = ({ name, number }) => {
     const contactsNames = this.state.contacts.map(contact => contact.name);
 
     if (contactsNames.includes(name)) {
-      alert(`${name} is already in Phonebook`)
+      alert(`${name} is already in Phonebook`);
     } else {
       const contactToAdd = {
-      id: shortid.generate(),
-      name,
-      number
+        id: shortid.generate(),
+        name,
+        number,
       };
 
-      this.setState(({contacts}) => ({
-        contacts: [contactToAdd, ...contacts]
-      }))
+      this.setState(({ contacts }) => ({
+        contacts: [contactToAdd, ...contacts],
+      }));
     }
-  }
+  };
 
-  changeFilter = (e) => {
+  changeFilter = e => {
     const currentValue = e.currentTarget.value;
     this.setState({ filter: currentValue });
-  }
+  };
 
   getVisibleContacts = () => {
     const { contacts, filter } = this.state;
     const normalizedFilter = filter.toLowerCase();
-    return contacts
-      .filter(contact => contact.name.toLowerCase()
-        .includes(normalizedFilter));
-  }
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter),
+    );
+  };
 
-  deleteContact = (contactId) => {
-    this.setState((prevState) => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== contactId)
+  deleteContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
-  }
+  };
 
   render() {
     const { filter } = this.state;
@@ -64,40 +63,42 @@ export default class App extends Component {
     return (
       <Container>
         <Heading>PhoneBook</Heading>
-        <ContactForm onSubmitForm={this.handleSubmit}/>
-        <Title type = 'text'>Contacts</Title>
-        <Filter value = {filter} onChange={this.changeFilter}/>
-        <ContactsList contacts={visibleContacts} onDeleteContact = {this.deleteContact}/>
+        <ContactForm onSubmitForm={this.handleSubmit} />
+        <Title type="text">Contacts</Title>
+        <Filter value={filter} onChange={this.changeFilter} />
+        <ContactsList
+          contacts={visibleContacts}
+          onDeleteContact={this.deleteContact}
+        />
       </Container>
-    ) 
+    );
   }
 }
 
 // ??????WHY don't 1 and 2 work?????
 // VARIANT 1
-    // this.setState(({ contacts }) => (
-    //   {
-    //     contacts: contacts.filter(contact =>
-    //       contact.name !== name ? ([contactToAdd, ...contacts]) : contacts),
-    //   }
-    // ));
-    // VARIANT 2
-    // this.setState(({contacts}) => ({
-    //      contacts: contacts.filter(contact => {
-    //        if (contact.name !== contactToAdd.name) {
-    //        console.log(name);
-    //        console.log(this.state.contacts);
-    //        console.log(contacts);
-    //        console.log([contactToAdd, ...contacts]);
-    //        return [contactToAdd, ...contacts];
-    //      }
-    //      return contacts;
-    //    })
-    //  })
-    // )
-    // VARIANT 3 працює ліше цей =>
-    // this.setState(
-    //   {
-    //     contacts: [contactToAdd, ...this.state.contacts]
-    //   })
-    
+// this.setState(({ contacts }) => (
+//   {
+//     contacts: contacts.filter(contact =>
+//       contact.name !== name ? ([contactToAdd, ...contacts]) : contacts),
+//   }
+// ));
+// VARIANT 2
+// this.setState(({contacts}) => ({
+//      contacts: contacts.filter(contact => {
+//        if (contact.name !== contactToAdd.name) {
+//        console.log(name);
+//        console.log(this.state.contacts);
+//        console.log(contacts);
+//        console.log([contactToAdd, ...contacts]);
+//        return [contactToAdd, ...contacts];
+//      }
+//      return contacts;
+//    })
+//  })
+// )
+// VARIANT 3 працює ліше цей =>
+// this.setState(
+//   {
+//     contacts: [contactToAdd, ...this.state.contacts]
+//   })
